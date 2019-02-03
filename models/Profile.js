@@ -37,7 +37,7 @@ const ProfileSchema = new Schema({
     required: true
   },
   rates: {
-    type: Number,
+    type: String,
     required: true
   },
   experience: [
@@ -51,12 +51,10 @@ const ProfileSchema = new Schema({
         required: true
       },
       trainingStyle: {
-        type: String,
-        required: true
+        type: String
       },
       location: {
-        type: String,
-        required: true
+        type: String
       },
       from: {
         type: Date,
