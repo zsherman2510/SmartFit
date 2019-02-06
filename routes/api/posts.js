@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const methodOverride = require('method-override');
 
 // Post model
 const Post = require('../../models/Post');
@@ -204,5 +208,8 @@ router.delete(
       .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
   }
 );
+// @route          POST api/post/upload
+// @description     get photo by id
+// @access          Private
 
 module.exports = router;

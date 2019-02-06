@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "sass": "node-sass -w scss/ -o public/css/ --recursive"
   },
   "author": "Zavion Sherman",
   "license": "MIT",
@@ -13,11 +14,18 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "gravatar": "^1.8.0",
+    "gridfs-stream": "^1.1.1",
     "jsonwebtoken": "^8.4.0",
+    "method-override": "^3.0.0",
     "mongoose": "^5.4.7",
+    "multer": "^1.4.1",
+    "multer-gridfs-storage": "^3.2.3",
+    "node-sass": "^4.11.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "sass": "^1.17.0",
     "validator": "^10.11.0"
   },
   "devDependencies": {

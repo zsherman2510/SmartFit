@@ -1,0 +1,34 @@
+@import 'config';
+
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: $third-color;
+  background-clip: border-box;
+  border: 1px solid rgba(243, 243, 243, 0.877);
+  border-radius: 0.25rem;
+  color: $dark-color;
+
+  .card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+  }
+}
+
+.about {
+  background-color: rgb(245, 245, 245);
+}
+
+.list-group-item {
+  background-color: rgb(245, 245, 245);
+  color: $dark-color;
+}
+.education {
+  background-color: rgb(245, 245, 245);
+  color: $dark-color;
+}

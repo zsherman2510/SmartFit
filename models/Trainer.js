@@ -1,16 +1,35 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // create schema
 
-const ProfileSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
+const TrainerSchema = new Schema({
+  id: {
+    type: Schema.Types.ObjectId
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  avatar: {
+    type: String,
+    data: Buffer
+  },
+  date: {
+    type: Date,
+    default: Date.now
   },
   handle: {
     type: String,
-    required: true,
+
     max: 40
   },
   company: {
@@ -25,20 +44,14 @@ const ProfileSchema = new Schema({
   status: {
     type: String
   },
-  skills: {
-    type: [String],
-    required: true
+  trainingStyle: {
+    type: [String]
   },
   bio: {
     type: String
   },
-  trainingStyle: {
-    type: String,
-    required: true
-  },
   rates: {
-    type: String,
-    required: true
+    type: String
   },
   experience: [
     {
@@ -122,4 +135,4 @@ const ProfileSchema = new Schema({
   }
 });
 
-module.exports = Profile = mongoose.model("profile", ProfileSchema);
+module.exports = Trainer = mongoose.model('trainer', TrainerSchema);
