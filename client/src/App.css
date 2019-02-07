@@ -1,0 +1,124 @@
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #f36f38;
+  background-clip: border-box;
+  border: 1px solid rgba(243, 243, 243, 0.877);
+  border-radius: 0.25rem;
+  color: #582841;
+}
+.card .card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.about {
+  background-color: whitesmoke;
+}
+
+.list-group-item {
+  background-color: whitesmoke;
+  color: #582841;
+}
+
+.education {
+  background-color: whitesmoke;
+  color: #582841;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+.landing {
+  position: relative;
+  background: url(./img/alexander-redl-185764-unsplash.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin-top: -24px;
+  margin-bottom: -50px;
+}
+
+.landing-inner {
+  padding-top: 80px;
+}
+
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-form {
+  opacity: 0.9;
+}
+
+.latest-profiles-img {
+  width: 40px;
+  height: 40px;
+}
+
+.form-control::placeholder {
+  color: #bbb !important;
+}
+
+nav {
+  background: #cc2a49;
+}
+nav .navbar-brand {
+  font-weight: 700;
+}
+
+a {
+  color: white;
+}
+a:hover {
+  color: #f99e4c;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  position: relative;
+}
+
+.btn {
+  background-color: #f36f38;
+}
+.btn:hover {
+  background-color: #582841;
+}
+
+.btn-nav {
+  background-color: #f99e4c;
+  color: white;
+}
+.btn-nav:hover {
+  background-color: #ef4648;
+  color: white;
+}
+
+.btn-light {
+  background-color: #f99e4c;
+  color: white;
+}
+.btn-light:hover {
+  background-color: #ef4648;
+  color: white;
+}
+
+footer {
+  background-color: #582841;
+}
