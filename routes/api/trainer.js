@@ -1,33 +1,33 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const mongoose = require('mongoose');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys');
-const gravatar = require('gravatar');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+const gravatar = require("gravatar");
+const bcrypt = require("bcryptjs");
 // load validation
 
-const validateRegisterInput = require('../../validation/register');
-const validateTrainerInput = require('../../validation/trainer');
-const validateExperienceInput = require('../../validation/experience');
-const validateEducationInput = require('../../validation/education');
-const validateLoginInput = require('../../validation/login');
+const validateRegisterInput = require("../../validation/register");
+const validateTrainerInput = require("../../validation/trainer");
+const validateExperienceInput = require("../../validation/experience");
+const validateEducationInput = require("../../validation/education");
+const validateLoginInput = require("../../validation/login");
 
 //Load trainer trainer
-const Trainer = require('../../models/Trainer');
+const Trainer = require("../../models/Trainer");
 
 // @route           GET api/trainer/test
 // @description     Tests trainer route
 // @access          Public
 
-router.get('/test', (req, res) => res.json({ msg: 'Trainer Works' }));
+router.get("/test", (req, res) => res.json({ msg: "Trainer Works" }));
 
 // @route           GET api/users/register
 // @description     Register trainer
 // @access          Public
 
-router.post('/register', (req, res) => {
+router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
@@ -35,13 +35,13 @@ router.post('/register', (req, res) => {
   }
   Trainer.findOne({ email: req.body.email }).then(trainer => {
     if (trainer) {
-      errors.email = 'Email already exists';
+      errors.email = "Email already exists";
       return res.status(400).json(errors);
     } else {
       const avatar = gravatar.url(req.body.email, {
-        s: '200', //Size
-        r: 'pg', //Avatar rating
-        d: 'mm' // Default
+        s: "200", //Size
+        r: "pg", //Avatar rating
+        d: "mm" // Default
       });
       const newTrainer = new Trainer({
         name: req.body.name,
@@ -68,7 +68,7 @@ router.post('/register', (req, res) => {
 // @route           GET api/users/test
 // @description     login Trainer / returning jwt token
 // @access          Public
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   if (!isValid) {
@@ -81,7 +81,7 @@ router.post('/login', (req, res) => {
   Trainer.findOne({ email }).then(trainer => {
     //check for trainer
     if (!trainer) {
-      errors.email = 'trainer not found';
+      errors.email = "User not found";
       return res.status(404).json(errors);
     }
 
@@ -105,12 +105,12 @@ router.post('/login', (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: 'Bearer ' + token
+              token: "Bearer " + token
             });
           }
         );
       } else {
-        errors.password = 'Password incorrect';
+        errors.password = "Password incorrect";
         return res.status(400).json(errors);
       }
     });
@@ -121,15 +121,15 @@ router.post('/login', (req, res) => {
 // @description     Get current users trainer
 // @access          Private
 router.get(
-  '/',
-  passport.authenticate('jwt', { session: false }),
+  "/",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
     Trainer.findOne(req.trainer.id)
-      .populate('trainer', ['name', 'avatar'])
+      .populate("trainer", ["name", "avatar"])
       .then(trainer => {
         if (!trainer) {
-          errors.notrainer = 'There is no trainer for this trainer';
+          errors.notrainer = "There is no trainer for this trainer";
           return res.status(404).json(errors);
         }
         res.json(trainer);
@@ -140,32 +140,32 @@ router.get(
 // @route           GET api/trainer/all
 // @description     Get all profiles
 // @access          Public
-router.get('/all', (req, res) => {
+router.get("/all", (req, res) => {
   const errors = {};
   Trainer.find()
-    .populate('trainer', ['name', 'avatar'])
+    .populate("trainer", ["name", "avatar"])
     .then(trainers => {
       if (!trainers) {
-        errors.noprofile = 'there are no trainers';
+        errors.noprofile = "there are no trainers";
         return res.status(404).json(errors);
       }
       res.json(trainers);
     })
-    .catch(err => res.status(404).json({ trainer: 'There are no trainers.' }));
+    .catch(err => res.status(404).json({ trainer: "There are no trainers." }));
 });
 
 // @route           GET api/trainer/handle/:handle
 // @description     Get trainer by handle
 // @access          Public
 
-router.get('/handle/:handle', (req, res) => {
+router.get("/handle/:handle", (req, res) => {
   const errors = {};
 
   Trainer.findOne({ handle: req.params.handle })
-    .populate('trainer', ['name', 'avatar'])
+    .populate("trainer", ["name", "avatar"])
     .then(trainer => {
       if (!trainer) {
-        errors.noprofile = 'there is no trainer for this trainer';
+        errors.noprofile = "there is no trainer for this trainer";
         res.status(404).json(errors);
       }
       res.json(trainer);
@@ -177,20 +177,20 @@ router.get('/handle/:handle', (req, res) => {
 // @description     Get trainer by trainer ID
 // @access          Public
 
-router.get('/trainer/:user_id', (req, res) => {
+router.get("/trainer/:user_id", (req, res) => {
   const errors = {};
 
   Trainer.findOne(req.params.user_id)
-    .populate('trainer', ['name', 'avatar'])
+    .populate("trainer", ["name", "avatar"])
     .then(trainer => {
       if (!trainer) {
-        errors.noprofile = 'there is no trainer for this trainer';
+        errors.noprofile = "there is no trainer for this trainer";
         res.status(404).json(errors);
       }
       res.json(trainer);
     })
     .catch(err =>
-      res.status(404).json({ trainer: 'There is no trainer for this trainer.' })
+      res.status(404).json({ trainer: "There is no trainer for this trainer." })
     );
 });
 
@@ -198,8 +198,8 @@ router.get('/trainer/:user_id', (req, res) => {
 // @description     Create or edit trainer trainer
 // @access          Private
 router.post(
-  '/',
-  passport.authenticate('jwt', { session: false }),
+  "/",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateTrainerInput(req.body);
 
@@ -216,8 +216,8 @@ router.post(
     if (req.body.location) trainerFields.location = req.body.location;
     if (req.body.status) trainerFields.status = req.body.status;
     // Skills - split into array
-    if (typeof req.body.trainingStyle !== 'undefined') {
-      trainerFields.trainingStyle = req.body.trainingStyle.split(',');
+    if (typeof req.body.trainingStyle !== "undefined") {
+      trainerFields.trainingStyle = req.body.trainingStyle.split(",");
     }
     if (req.body.bio) trainerFields.bio = req.body.bio;
     if (req.body.trainingStyle)
@@ -246,7 +246,7 @@ router.post(
         // Check if handle exists
         Trainer.findOne({ handle: trainerFields.handle }).then(trainer => {
           if (trainer) {
-            errors.handle = 'That handle already exists';
+            errors.handle = "That handle already exists";
             res.status(400).json(errors);
           }
 
@@ -263,8 +263,8 @@ router.post(
 // @access          Private
 
 router.post(
-  '/experience',
-  passport.authenticate('jwt', { session: false }),
+  "/experience",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateExperienceInput(req.body);
 
@@ -289,7 +289,7 @@ router.post(
 
         trainer.save().then(trainer => res.json(trainer));
       } else {
-        res.json({ trainer: 'you must create a trainer first.' });
+        res.json({ trainer: "you must create a trainer first." });
       }
     });
   }
@@ -298,8 +298,8 @@ router.post(
 // @description     Add education to trainer
 // @access          Private
 router.post(
-  '/education',
-  passport.authenticate('jwt', { session: false }),
+  "/education",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateEducationInput(req.body);
 
@@ -323,7 +323,7 @@ router.post(
 
         trainer.save().then(trainer => res.json(trainer));
       } else {
-        res.json({ trainer: 'you must create a trainer first.' });
+        res.json({ trainer: "you must create a trainer first." });
       }
     });
   }
@@ -332,8 +332,8 @@ router.post(
 // @description     delete experience from trainer
 // @access          Private
 router.delete(
-  '/experience/:exp_id',
-  passport.authenticate('jwt', { session: false }),
+  "/experience/:exp_id",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Trainer.findOne(req.trainer.id).then(trainer => {
       // Get remove index
@@ -358,8 +358,8 @@ router.delete(
 // @description     delete education from trainer
 // @access          Private
 router.delete(
-  '/education/:edu_id',
-  passport.authenticate('jwt', { session: false }),
+  "/education/:edu_id",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Trainer.findOne(req.trainer.id).then(trainer => {
       // Get remove index
@@ -385,8 +385,8 @@ router.delete(
 // @description     delete trainer and trainer
 // @access          Private
 router.delete(
-  '/',
-  passport.authenticate('jwt', { session: false }),
+  "/",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Trainer.findOneAndRemove({ _id: res.trainer.id }).then(() =>
       res.json({ success: true })

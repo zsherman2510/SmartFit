@@ -8,7 +8,7 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
 const passport = require("passport");
-
+const cors = require("cors");
 const trainer = require("./routes/api/trainer");
 const client = require("./routes/api/client");
 
@@ -18,7 +18,7 @@ const app = express();
 // body parse middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(cors());
 //DB Config
 const db = require("./config/keys").mongoURI;
 
