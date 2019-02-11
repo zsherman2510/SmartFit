@@ -9,7 +9,7 @@ const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
 const passport = require("passport");
 const cors = require("cors");
-const trainer = require("./routes/api/trainer");
+
 const client = require("./routes/api/client");
 
 const posts = require("./routes/api/posts");
@@ -39,7 +39,6 @@ require("./config/passport")(passport);
 
 //Use routes
 
-app.use("/api/trainer", trainer);
 app.use("/api/posts", posts);
 app.use("/api/client", client);
 
